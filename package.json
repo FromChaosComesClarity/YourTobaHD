@@ -1,0 +1,42 @@
+{
+  "name": "yourtoba-crt",
+  "productName": "YourTobaCRT",
+  "version": "0.1.0",
+  "description": "Ultra-lightweight YouTube TV (Leanback) shell for 4:3 CRT televisions (720x480i NTSC composite)",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "dist": "electron-builder --linux AppImage"
+  },
+  "devDependencies": {
+    "electron": "41.3.0",
+    "electron-builder": "^26.8.1"
+  },
+  "dependencies": {
+    "@ghostery/adblocker": "^2.5.0",
+    "@ghostery/adblocker-electron": "^2.5.0"
+  },
+  "build": {
+    "appId": "io.github.fromchaoscomesclarity.yourtobacrt",
+    "productName": "YourTobaCRT",
+    "directories": {
+      "output": "dist"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icon.png",
+      "category": "AudioVideo"
+    },
+    "appImage": {
+      "artifactName": "YourTobaCRT.AppImage"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "crt-style.css",
+      "assets/**/*"
+    ]
+  }
+}
