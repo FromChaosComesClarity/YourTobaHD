@@ -1,19 +1,20 @@
-# YourTobaCRT
+# YourTobaHD
 
-An ultra-lightweight, dedicated native shell around **YouTube TV (Leanback)** engineered specifically for 4:3 CRT televisions driven via an **HDMI out → composite adapter → CRT TV (720×480i NTSC)** display chain.
+A lightweight, dedicated native shell around **YouTube TV (Leanback)** for modern 16:9 televisions — 1080p and 4K, over HDMI.
 
-Derived from [youTOBA](https://github.com/FromChaosComesClarity/youTOBA) and research from [OmaCRT](https://github.com/FromChaosComesClarity/OmaCRT).
+Forked from [YourTobaCRT](https://github.com/FromChaosComesClarity/YourTobaCRT), which does the same job for a 4:3 tube at 720×480i. Derived from [youTOBA](https://github.com/FromChaosComesClarity/youTOBA). Made to sit on the home screen of [OMATVLauncher](https://github.com/FromChaosComesClarity/OMATVLauncher): drop the AppImage in `~/Applications` and it is a tile.
 
 ---
 
-## Why YourTobaCRT?
+## From CRT to HD
 
-Standard browsers and Electron apps fail silently on analog CRT setups:
-1. **Fractional Scaling Collapse**: Omarchy sets `GDK_SCALE=2` for high-DPI displays. Chromium detects this and derives a fractional scale factor (~1.64), silently crunching the 720×480 screen into an unusable 439×293 viewport. YourTobaCRT forces `force-device-scale-factor=1`, ensuring 1 CSS pixel equals 1 physical scanline.
-2. **Aspect Ratio Distortion (16:9 on 4:3)**: YouTube TV is designed for 16:9 widescreen. Squeezed full-frame onto a 4:3 CRT tube, circles become tall ovals and video is vertically elongated by 33%. YourTobaCRT defaults to a 16:9 letterbox (360 active lines centered in 480 lines), maintaining exact geometry.
-3. **Bezel Overscan**: Consumer CRT televisions cut off 5% to 7% of the raster behind the cabinet bezel. Injected safe-area padding ensures the navigation guide, search bar, and scrubbers stay visible.
-4. **480i Interlace Twitter**: 1px horizontal lines flicker violently at 30Hz on interlaced composite video. YourTobaCRT enforces 3px minimum focus outlines and tones down pure saturated red chroma bleed.
-5. **Ultra-Low Memory Footprint**: Running on a Mac Mini (late 2014, dual-core Haswell, 4 GB RAM), every megabyte counts. All desktop UI chrome, dual-view WebContents, and heavy downloader runtimes (`ffmpeg-static`, `yt-dlp`) have been eliminated.
+YourTobaCRT spent most of its code correcting for the screen. A modern TV is the screen Leanback was designed for, so most of that comes out, and one thing turns around:
+
+1. **Native panel pixels (kept, for the opposite reason)**: a TV's own YouTube app reports the panel itself — 1920×1080 or 3840×2160 at a device scale of 1 — and Leanback scales its interface to that. A desktop compositor scales instead: Hyprland at 1.5 or 2 hands Leanback 1280×720 or 1920×1080 and it lays out for the smaller screen. YourTobaCRT's `force-device-scale-factor=1` still covers X11/XWayland, but under native Wayland the compositor's scale wins, so YourTobaHD measures the page's real `devicePixelRatio` and zooms by its inverse. Verified on a 1080p panel at Hyprland scale 1.5: Leanback gets 1920×1080 at a device scale of 1, and looks exactly the same size.
+2. **No letterbox**: the panel *is* 16:9. The 4:3 letterbox and stretch modes are gone.
+3. **Overscan off by default**: with the TV set to "Just Scan" / "Screen Fit" / "Original", an HDMI picture is shown 1:1 and needs no safe area. For sets that crop anyway, `F10` draws the interface at the broadcast title-safe size instead, and remembers that for this machine.
+4. **No interlace or composite workarounds**: the 3px focus floor and the desaturated reds were for 480i twitter and NTSC colour bleed. Progressive HDMI has neither.
+5. **Hardware video decode**: VA-API decoding is requested (Intel, AMD), so a long 4K stream does not run on the CPU. Chromium falls back to software where it is unavailable.
 
 ---
 
@@ -27,20 +28,17 @@ Standard browsers and Electron apps fail silently on analog CRT setups:
   - Auto-hides mouse cursor after 2.5 seconds of inactivity.
   - Native arrow keys, `Enter` (select), `Escape`/`Backspace` (back), and `Space` (play/pause).
 - **Controls & Hotkeys**:
-  - `F10` — Toggle Aspect Ratio: **16:9 Letterbox** (accurate video geometry) ↔ **4:3 Full Stretch** (fills the entire tube).
+  - `F10` — Toggle overscan compensation, for TVs that crop the picture (remembered).
   - `F11` — Toggle Fullscreen.
   - `Ctrl + Q` — Quit cleanly.
 
 ---
 
-## Hardware Target Profile
+## Target
 
-- **Device**: Mac Mini (Macmini7,1, late-2014)
-- **CPU**: Intel Core i5-4260U (Haswell-ULT, 2C/4T @ 1.4 GHz)
-- **RAM**: 4 GB
-- **GPU**: Intel HD Graphics 5000 (`i915`)
+- **Display**: any 16:9 TV over HDMI, 1080p or 4K
 - **OS**: Omarchy / Arch Linux (Hyprland)
-- **Output**: HDMI out → composite adapter → CRT TV (720×480i)
+- **Home screen**: [OMATVLauncher](https://github.com/FromChaosComesClarity/OMATVLauncher) (optional)
 
 ---
 
@@ -57,10 +55,10 @@ npm run dev
 npm run dist
 ```
 
-The resulting `YourTobaCRT.AppImage` in `dist/` is completely standalone and ready to be transferred to the target CRT machine.
+The resulting `YourTobaHD.AppImage` in `dist/` is completely standalone. Put it in `~/Applications` and OMATVLauncher lists it.
 
 ---
 
 ## License
 
-GPL-3.0 (matching OmaCRT, Clarity, and EmuLatte).
+GPL-3.0 (matching YourTobaCRT, OmaCRT, Clarity, and EmuLatte).

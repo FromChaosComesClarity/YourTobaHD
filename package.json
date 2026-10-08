@@ -1,9 +1,10 @@
 {
-  "name": "yourtoba-crt",
-  "productName": "YourTobaCRT",
+  "name": "yourtoba-hd",
+  "productName": "YourTobaHD",
   "version": "0.1.0",
-  "description": "Ultra-lightweight YouTube TV (Leanback) shell for 4:3 CRT televisions (720x480i NTSC composite)",
+  "description": "Lightweight YouTube TV (Leanback) shell for modern 16:9 TVs, 1080p and 4K",
   "main": "main.js",
+  "desktopName": "yourtobahd.desktop",
   "private": true,
   "scripts": {
     "start": "electron .",
@@ -19,23 +20,25 @@
     "@ghostery/adblocker-electron": "^2.5.0"
   },
   "build": {
-    "appId": "io.github.fromchaoscomesclarity.yourtobacrt",
-    "productName": "YourTobaCRT",
+    "appId": "io.github.fromchaoscomesclarity.yourtobahd",
+    "productName": "YourTobaHD",
     "directories": {
       "output": "dist"
     },
     "linux": {
       "target": "AppImage",
       "icon": "assets/icon.png",
-      "category": "AudioVideo"
+      "category": "AudioVideo",
+      "executableName": "yourtobahd",
+      "syncDesktopName": true
     },
     "appImage": {
-      "artifactName": "YourTobaCRT.AppImage"
+      "artifactName": "YourTobaHD.AppImage"
     },
     "files": [
       "main.js",
       "preload.js",
-      "crt-style.css",
+      "hd-style.css",
       "assets/**/*"
     ]
   }

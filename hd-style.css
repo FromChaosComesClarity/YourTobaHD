@@ -1,0 +1,39 @@
+/* YourTobaHD — CSS overrides for YouTube TV (Leanback) on a modern 16:9 TV */
+
+/*
+ * Almost nothing, on purpose. Leanback is built for exactly this screen: a
+ * 16:9 panel at 1080p or 4K, seen from across the room. Everything YourTobaCRT
+ * had to correct — the 4:3 letterbox, the bezel safe area, the 3px focus floor
+ * against interlace twitter, the desaturated reds against composite bleed —
+ * is a problem this display does not have. What is left is keeping the page
+ * edge-to-edge and black behind.
+ */
+
+html {
+  background-color: #000000 !important;
+  overflow: hidden !important;
+  user-select: none;
+}
+
+body {
+  position: absolute !important;
+  inset: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+
+/*
+ * Overscan, opt-in (F10). Most TVs show an HDMI picture 1:1 once "Just Scan" /
+ * "Screen Fit" / "Original" is set, and then this should stay off. Some sets
+ * crop a few percent by default and cannot be told otherwise; for those, this
+ * pulls the whole interface in by the broadcast title-safe margin instead of
+ * losing the guide and the scrubber behind the bezel.
+ *
+ * ⚠️ A scale of the whole page, not a smaller body: Leanback lays itself out
+ * from the window size, so a body inset would only crop its right and bottom
+ * edges. Scaling keeps its geometry intact and simply draws it 93% as large.
+ */
+html.hd-overscan {
+  transform: scale(0.93) !important;
+  transform-origin: 50% 50% !important;
+}

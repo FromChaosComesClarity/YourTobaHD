@@ -1,4 +1,4 @@
-// YourTobaCRT Preload Script
+// YourTobaHD Preload Script
 // Ad-stripping at the innertube JSON level before the Leanback player or feed receives it.
 // Derived from VacuumTube (MIT) and youTOBA.
 

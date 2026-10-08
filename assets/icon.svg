@@ -1,67 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <!-- Background Gradient -->
-    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#2a2222" />
-      <stop offset="100%" stop-color="#121010" />
+    <radialGradient id="bgGlow" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#2a2424" />
+      <stop offset="100%" stop-color="#0e0c0c" />
     </radialGradient>
-    <!-- Screen Phosphor Gradient -->
-    <radialGradient id="phosphor" cx="50%" cy="45%" r="60%">
-      <stop offset="0%" stop-color="#ff3333" />
-      <stop offset="60%" stop-color="#cc1111" />
-      <stop offset="100%" stop-color="#880000" />
-    </radialGradient>
-    <!-- Bezel Gradient -->
-    <linearGradient id="bezel" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#3a3838" />
-      <stop offset="100%" stop-color="#201e1e" />
+    <!-- Panel: a flat, edge-lit screen rather than a phosphor tube -->
+    <linearGradient id="panel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff4040" />
+      <stop offset="55%" stop-color="#e01818" />
+      <stop offset="100%" stop-color="#9a0808" />
+    </linearGradient>
+    <linearGradient id="sheen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity=".28" />
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0" />
     </linearGradient>
   </defs>
 
-  <!-- Background Circle / Base -->
   <rect width="512" height="512" rx="100" fill="url(#bgGlow)" />
 
-  <!-- CRT Outer Cabinet (Retro TV Body) -->
-  <rect x="56" y="76" width="400" height="340" rx="36" fill="url(#bezel)" stroke="#4d4a4a" stroke-width="8" />
+  <!-- Thin-bezel 16:9 panel -->
+  <rect x="44" y="118" width="424" height="250" rx="18" fill="#161414" stroke="#3a3636" stroke-width="5" />
+  <rect x="56" y="130" width="400" height="226" rx="10" fill="url(#panel)" />
+  <rect x="56" y="130" width="400" height="226" rx="10" fill="url(#sheen)" />
 
-  <!-- CRT Tube Glass Border -->
-  <rect x="80" y="100" width="310" height="292" rx="28" fill="#0a0a0a" stroke="#1a1818" stroke-width="6" />
+  <!-- Play -->
+  <path d="M 228 196 L 300 243 L 228 290 Z" fill="#ffffff" />
 
-  <!-- Curved Phosphor Screen -->
-  <path d="M 98 124 
-           C 160 114, 310 114, 372 124
-           C 382 170, 382 322, 372 368
-           C 310 378, 160 378, 98 368
-           C 88 322, 88 170, 98 124 Z" 
-        fill="url(#phosphor)" />
+  <!-- HD badge -->
+  <rect x="384" y="314" width="58" height="30" rx="7" fill="#ffffff" fill-opacity=".95" />
+  <text x="413" y="336" text-anchor="middle" font-family="Poppins, Inter, Arial, sans-serif" font-weight="800" font-size="20" fill="#c41010">HD</text>
 
-  <!-- Subtle Scanline Texture -->
-  <line x1="96" y1="160" x2="374" y2="160" stroke="#000000" stroke-width="2" opacity="0.25" />
-  <line x1="94" y1="200" x2="376" y2="200" stroke="#000000" stroke-width="2" opacity="0.25" />
-  <line x1="92" y1="240" x2="378" y2="240" stroke="#000000" stroke-width="2" opacity="0.25" />
-  <line x1="92" y1="280" x2="378" y2="280" stroke="#000000" stroke-width="2" opacity="0.25" />
-  <line x1="94" y1="320" x2="376" y2="320" stroke="#000000" stroke-width="2" opacity="0.25" />
-
-  <!-- Play Symbol (YouTube / TV) -->
-  <polygon points="205,190 285,246 205,302" fill="#ffffff" />
-
-  <!-- TV Knobs & Speaker Grille on Right Bezel -->
-  <!-- Top Dial -->
-  <circle cx="418" cy="150" r="18" fill="#2d2b2b" stroke="#555252" stroke-width="4" />
-  <line x1="418" y1="138" x2="418" y2="150" stroke="#ff3333" stroke-width="4" stroke-linecap="round" />
-  <!-- Bottom Dial -->
-  <circle cx="418" cy="205" r="18" fill="#2d2b2b" stroke="#555252" stroke-width="4" />
-  <line x1="418" y1="193" x2="418" y2="205" stroke="#ffffff" stroke-width="4" stroke-linecap="round" />
-  <!-- Speaker Slits -->
-  <line x1="406" y1="265" x2="430" y2="265" stroke="#181616" stroke-width="4" stroke-linecap="round" />
-  <line x1="406" y1="285" x2="430" y2="285" stroke="#181616" stroke-width="4" stroke-linecap="round" />
-  <line x1="406" y1="305" x2="430" y2="305" stroke="#181616" stroke-width="4" stroke-linecap="round" />
-  <line x1="406" y1="325" x2="430" y2="325" stroke="#181616" stroke-width="4" stroke-linecap="round" />
-
-  <!-- CRT Tube Screen Glare Reflection -->
-  <path d="M 110 132 C 180 124, 250 124, 310 130 C 270 180, 150 200, 105 160 Z" fill="#ffffff" opacity="0.12" />
-
-  <!-- Stand / Feet -->
-  <polygon points="120,416 140,436 190,416" fill="#181616" />
-  <polygon points="392,416 372,436 322,416" fill="#181616" />
+  <!-- Stand -->
+  <path d="M 226 368 L 286 368 L 300 404 L 212 404 Z" fill="#2a2727" />
+  <rect x="168" y="400" width="176" height="10" rx="5" fill="#3a3636" />
 </svg>
